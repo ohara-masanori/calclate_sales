@@ -1,4 +1,4 @@
-package jp.alhinc.ohara_masanori.calclate_sales;
+package jp.alhinc.ohara_masanori.calculate_sales;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -12,10 +12,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-public class CalclateSales {
+public class CalculateSales {
 	public static void main(String[] args) {
 
-		//branch.listのデータを分割する。
 		HashMap<String,String>branchNameMap = new HashMap<String,String>();
 		HashMap<String,Long>branchSaleMap = new HashMap<String,Long>();
 		try{
@@ -35,10 +34,8 @@ public class CalclateSales {
 				items[0].matches("\\d{3}");
 				if(!items[0].matches("\\d{3}") &&(items.length !=2)){
 					System.out.println("支店定義ファイルのフォーマットが不正です。");
-
-					 return;
+					return;
 				}
-
 				branchNameMap.put(items[0],items[1]);
 				branchSaleMap.put(items[0],money);
 			}
@@ -49,6 +46,7 @@ public class CalclateSales {
 
 		}catch (IOException e) {
 			System.out.println("予期せぬエラーが発生しました。");
+
 		}
 
 		//commondity.lstのデータを分割する。
@@ -69,7 +67,6 @@ public class CalclateSales {
 
 				if(!items[0].matches("^[a-zA-Z0-9]+$") &&(items.length !=2)){
 					System.out.println("商品定義ファイルのフォーマットが不正です。");
-
 					return;
 				}
 				commondityNameMap.put(items[0],items[1]);
@@ -84,7 +81,6 @@ public class CalclateSales {
 			System.out.println("予期せぬエラーが発生しました。");
 
 		}finally{
-
 
 		}
 
@@ -154,7 +150,6 @@ public class CalclateSales {
 				if( pulsamount >1000000000){
 					System.out.println("合計金額が10桁を超えました");
 					return;
-
 				}
 
 				branchSaleMap.put(shops.get(0),pulsamount);
@@ -203,7 +198,6 @@ public class CalclateSales {
 			System.out.println("商品名 :" + commondityNameMap.get(s.getKey()));
 			System.out.println("合計金額 : " + s.getValue());
 		}
-
 	}
 }
 
