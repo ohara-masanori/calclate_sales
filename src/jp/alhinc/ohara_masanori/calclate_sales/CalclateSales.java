@@ -66,11 +66,10 @@ public class CalclateSales {
 			while((commondityNameData = br.readLine()) != null) {
 
 				String[] items = commondityNameData.split(",",-1);
-				System.out.println(items[0].matches("^[a-zA-Z0-9]+$"));
-				
+
 				if(!items[0].matches("^[a-zA-Z0-9]+$") &&(items.length !=2)){
 					System.out.println("商品定義ファイルのフォーマットが不正です。");
-					
+
 					return;
 				}
 				commondityNameMap.put(items[0],items[1]);
