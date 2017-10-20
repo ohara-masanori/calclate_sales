@@ -21,8 +21,8 @@ public class CalclateSales {
 		try{
 
 			File dir = new File(args[0],"branch.lst");
-			FileReader fr = new FileReader(dir);     //Fire（引数）からFileReaderをオブジェクトを作成。
-			BufferedReader br = new BufferedReader(fr);      //FileReader（引数）BRオブジェクトを作成。
+			FileReader fr = new FileReader(dir);
+			BufferedReader br = new BufferedReader(fr);
 
 			String branchNamedata ;
 
@@ -44,10 +44,10 @@ public class CalclateSales {
 			}
 			br.close();		//finalyに変換する。
 
-		}catch (FileNotFoundException e){     //ファイル自体があるのか確認。
+		}catch (FileNotFoundException e){
 			System.out.println("支店定義ファイルが存在しません。");
 
-		}catch (IOException e) {       //キーボード故障確認
+		}catch (IOException e) {
 			System.out.println("予期せぬエラーが発生しました。");
 		}
 
@@ -58,8 +58,8 @@ public class CalclateSales {
 		try{
 
 			File dir = new File(args[0],"commondity.lst");
-			FileReader fr = new FileReader(dir);     //Fire（引数）からFileReaderをオブジェクトを作成。
-			BufferedReader br = new BufferedReader(fr);      //FileReader（引数）BRオブジェクトを作成。
+			FileReader fr = new FileReader(dir);
+			BufferedReader br = new BufferedReader(fr);
 
 			String commondityNameData ;
 			Long money =0l;
@@ -82,7 +82,9 @@ public class CalclateSales {
 
 		}catch (IOException e) {
 			System.out.println("予期せぬエラーが発生しました。");
+
 		}finally{
+
 
 		}
 
@@ -114,8 +116,8 @@ public class CalclateSales {
 		for(int i = 0; i < rcdFiles.size() ; i++ ){
 			try{
 
-				FileReader fr = new FileReader(rcdFiles.get(i));     //Fire（引数）からFileReaderをオブジェクトを作成。
-				BufferedReader br = new BufferedReader(fr);      //FileReader（引数）BRオブジェクトを作成。
+				FileReader fr = new FileReader(rcdFiles.get(i));
+				BufferedReader br = new BufferedReader(fr);
 
 				String strshop;
 				ArrayList<String> shops = new ArrayList<String>();
@@ -124,6 +126,7 @@ public class CalclateSales {
 
 					shops.add(strshop);
 				}
+				br.close();
 
 				if(branchSaleMap.containsKey(shops.get(0))){
 					branchSaleMap.get((0));
@@ -151,7 +154,9 @@ public class CalclateSales {
 				if( pulsamount >1000000000){
 					System.out.println("合計金額が10桁を超えました");
 					return;
+
 				}
+
 				branchSaleMap.put(shops.get(0),pulsamount);
 
 				commonditySaleMap.get(shops.get(1));
@@ -160,10 +165,10 @@ public class CalclateSales {
 
 				br.close();
 
-			}catch (FileNotFoundException e){     //ファイル自体があるのか確認。
+			}catch (FileNotFoundException e){
 					System.out.println("ファイルが存在しません。");
 
-			}catch (IOException e) {       //キーボード故障確認
+			}catch (IOException e) {
 					System.out.println(e);
 			}
 		}
