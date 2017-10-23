@@ -65,28 +65,27 @@ public class CalculateSales {
 			}
 		}
 		//commondity.lstのデータを分割する。
-		HashMap<String,String>commondityNameMap = new HashMap<String,String>();
-		HashMap<String,Long>commonditySaleMap = new HashMap<String,Long>();
+		HashMap<String,String>commodityNameMap = new HashMap<String,String>();
+		HashMap<String,Long>commoditySaleMap = new HashMap<String,Long>();
 
 		try{
 
-			File dir = new File(args[0],"commondity.lst");
+			File dir = new File(args[0],"commodity.lst");
 			FileReader fr = new FileReader(dir);
 			br = new BufferedReader(fr);
 
-			String commondityNameData ;
+			String commodityNameData ;
 			Long money =0l;
-			while((commondityNameData = br.readLine()) != null) {
+			while((commodityNameData = br.readLine()) != null) {
 
-				String[] items = commondityNameData.split(",",-1);
+				String[] items = commodityNameData.split(",",-1);
 
 				if(!items[0].matches("^[a-zA-Z0-9]+$") ||(items.length !=2)){
 					System.out.println("商品定義ファイルのフォーマットが不正です");
 				}
-				commondityNameMap.put(items[0],items[1]);
-				commonditySaleMap.put(items[0],money);
+				commodityNameMap.put(items[0],items[1]);
+				commoditySaleMap.put(items[0],money);
 			}
-			br.close();
 
 		}catch (FileNotFoundException e){
 			System.out.println("商品定義ファイルが存在しません");
@@ -150,8 +149,8 @@ public class CalculateSales {
 					System.out.println(rcdFiles.get(i).getName() + "の支店コードが不正です");
 					return;
 				}
-				if(commonditySaleMap.containsKey(shops.get(1))){
-					commonditySaleMap.get((0));
+				if(commoditySaleMap.containsKey(shops.get(1))){
+					commoditySaleMap.get((0));
 				}else{
 					System.out.println(rcdFiles.get(i).getName() + "の商品コードが不正です");
 					return;
@@ -171,9 +170,9 @@ public class CalculateSales {
 				}
 				branchSaleMap.put(shops.get(0),pulsamount);
 
-				commonditySaleMap.get(shops.get(1));
-				commonditySaleMap.get(shops.get(1));
-				commonditySaleMap.put(shops.get(1),pulsamount);
+				commoditySaleMap.get(shops.get(1));
+				commoditySaleMap.get(shops.get(1));
+				commoditySaleMap.put(shops.get(1),pulsamount);
 
 			}catch (FileNotFoundException e){
 					System.out.println("予期せぬエラーが発生しました");
@@ -232,9 +231,9 @@ public class CalculateSales {
 		}
 
 		//commodity.outの作成
-		List<Map.Entry<String,Long>> commondityList =
-		new ArrayList<Map.Entry<String,Long>>(commonditySaleMap.entrySet());
-		Collections.sort(commondityList, new Comparator<Map.Entry<String,Long>>() {
+		List<Map.Entry<String,Long>> commodityList =
+		new ArrayList<Map.Entry<String,Long>>(commoditySaleMap.entrySet());
+		Collections.sort(commodityList, new Comparator<Map.Entry<String,Long>>() {
 			@Override
 			public int compare(Entry<String,Long> entry1, Entry<String,Long> entry2) {
 				return ((Long)entry2.getValue()).compareTo((Long)entry1.getValue());
@@ -242,13 +241,13 @@ public class CalculateSales {
 		});
 
 		try{
-			File file = new File(args[0], "commondity.out");
+			File file = new File(args[0], "commodity.out");
 			FileWriter fw = new FileWriter(file);
 			bw = new BufferedWriter(fw);
 
 			//拡張ふぉｒ分
-			for (Entry<String,Long>s :commondityList){
-				bw.write(s.getKey() + "," + commondityNameMap.get(s.getKey()) + "," + s.getValue());
+			for (Entry<String,Long>s :commodityList){
+				bw.write(s.getKey() + "," + commodityNameMap.get(s.getKey()) + "," + s.getValue());
 				bw.newLine();
 			}
 		} catch (IOException e) {
