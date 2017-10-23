@@ -17,21 +17,21 @@ import java.util.Map.Entry;
 public class CalculateSales {
 	public static void main(String[] args) {
 
+		//HashMap branchMapを作成
 		HashMap<String,String>branchNameMap = new HashMap<String,String>();
 		HashMap<String,Long>branchSaleMap = new HashMap<String,Long>();
 		BufferedReader br = null;
+
 		if(args.length != 1){
 			System.out.println("予期せぬエラーが発生しました");
 			return;
 		}
 		try{
+			//branch.lst作成
 			File dir = new File(args[0],"branch.lst");
-
 			FileReader fr = new FileReader(dir);
 			br = new BufferedReader(fr);
-
 			String branchNamedata ;
-
 			while((branchNamedata = br.readLine()) != null) {
 
 				//データの分割
@@ -39,7 +39,7 @@ public class CalculateSales {
 				Long money =0l;
 				if(!items[0].matches("\\d{3}") || (items.length !=2)){
 					System.out.println("支店定義ファイルのフォーマットが不正です");
-					return;
+
 				}
 				branchNameMap.put(items[0],items[1]);
 				branchSaleMap.put(items[0],money);
@@ -64,15 +64,14 @@ public class CalculateSales {
 				return;
 			}
 		}
-		//commondity.lstのデータを分割する。
+
 		HashMap<String,String>commodityNameMap = new HashMap<String,String>();
 		HashMap<String,Long>commoditySaleMap = new HashMap<String,Long>();
 
 		try{
 
 			File dir = new File(args[0],"commodity.lst");
-			FileReader fr = new FileReader(dir);
-			br = new BufferedReader(fr);
+			br = new BufferedReader(new FileReader(dir));
 
 			String commodityNameData ;
 			Long money =0l;
@@ -82,7 +81,9 @@ public class CalculateSales {
 
 				if(!items[0].matches("^[a-zA-Z0-9]+$") ||(items.length !=2)){
 					System.out.println("商品定義ファイルのフォーマットが不正です");
+					return;
 				}
+
 				commodityNameMap.put(items[0],items[1]);
 				commoditySaleMap.put(items[0],money);
 			}
@@ -105,7 +106,6 @@ public class CalculateSales {
 				return;
 			}
 		}
-			//ディレクトリの中の.rcdファイルを選別する。
 		File dir = new File(args[0]);
 
 		File[] files =dir.listFiles();
@@ -129,7 +129,7 @@ public class CalculateSales {
 				return;
 			}
 		}
-		 //売上げをbranchSaleMapに代入
+
 		for(int i = 0; i < rcdFiles.size() ; i++ ){
 			try{
 
@@ -138,33 +138,32 @@ public class CalculateSales {
 				String strshop;
 				ArrayList<String> shops = new ArrayList<String>();
 
+				//rcdFile読み込み
 				while((strshop = br.readLine()) != null){
-
 					shops.add(strshop);
-
-				}
-				if(branchSaleMap.containsKey(shops.get(0))){
-					branchSaleMap.get((0));
-				}else{
-					System.out.println(rcdFiles.get(i).getName() + "の支店コードが不正です");
-					return;
-				}
-				if(commoditySaleMap.containsKey(shops.get(1))){
-					commoditySaleMap.get((0));
-				}else{
-					System.out.println(rcdFiles.get(i).getName() + "の商品コードが不正です");
-					return;
 				}
 				if(shops.size() !=3){
 					System.out.println(rcdFiles.get(i).getName() + "のフォーマットが不正です");
 					return;
 				}
+				if(!branchSaleMap.containsKey(shops.get(0))){
+
+					System.out.println(rcdFiles.get(i).getName() + "の支店コードが不正です");
+					return;
+				}
+				if(!commoditySaleMap.containsKey(shops.get(1))){
+
+					System.out.println(rcdFiles.get(i).getName() + "の商品コードが不正です");
+					return;
+				}
+
 
 				branchSaleMap.get(shops.get(0));
 				long amount = Long.parseLong(shops.get(2));
 				long shopsale = branchSaleMap.get(shops.get(0));
 				long pulsamount = (amount + shopsale);
-				if( pulsamount >1000000000){
+				if( pulsamount >= 9999999999l ){
+
 					System.out.println("合計金額が10桁を超えました");
 					return;
 				}
@@ -191,7 +190,6 @@ public class CalculateSales {
 			}
 		}
 
-		//Branch.outに作成。
 		List<Map.Entry<String,Long>> branchSaleList =
 		new ArrayList<Map.Entry<String,Long>>(branchSaleMap.entrySet());
 		Collections.sort(branchSaleList, new Comparator<Map.Entry<String,Long>>() {
@@ -207,30 +205,24 @@ public class CalculateSales {
 			FileWriter fw = new FileWriter(file);
 			bw = new BufferedWriter(fw);
 
-
-			//拡張ふぉｒ分
 			for (Entry<String,Long>s :branchSaleList){
 				bw.write(s.getKey() + "," + branchNameMap.get(s.getKey()) + "," + s.getValue());
 				bw.newLine();
 			}
 		} catch (IOException e) {
-			// TODO 自動生成された catch ブロック
 				System.out.println("予期せぬエラーが発生しました。");
 				return;
-
 		}finally{
 			try {
 				if(bw != null) {
 					bw.close();
 				}
 			} catch (IOException e) {
-				// TODO 自動生成された catch ブロック
 				System.out.println("予期せぬエラーが発生しました");
 				return;
 			}
 		}
 
-		//commodity.outの作成
 		List<Map.Entry<String,Long>> commodityList =
 		new ArrayList<Map.Entry<String,Long>>(commoditySaleMap.entrySet());
 		Collections.sort(commodityList, new Comparator<Map.Entry<String,Long>>() {
@@ -245,7 +237,6 @@ public class CalculateSales {
 			FileWriter fw = new FileWriter(file);
 			bw = new BufferedWriter(fw);
 
-			//拡張ふぉｒ分
 			for (Entry<String,Long>s :commodityList){
 				bw.write(s.getKey() + "," + commodityNameMap.get(s.getKey()) + "," + s.getValue());
 				bw.newLine();
@@ -259,7 +250,7 @@ public class CalculateSales {
 					bw.close();
 				}
 			} catch (IOException e) {
-				// TODO 自動生成された catch ブロック
+
 				System.out.println("予期せぬエラーが発生しました");
 				return;
 			}
