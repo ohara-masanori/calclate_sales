@@ -39,6 +39,7 @@ public class CalculateSales {
 				Long money =0l;
 				if(!items[0].matches("\\d{3}") || (items.length !=2)){
 					System.out.println("支店定義ファイルのフォーマットが不正です");
+					return;
 
 				}
 				branchNameMap.put(items[0],items[1]);
@@ -159,17 +160,28 @@ public class CalculateSales {
 
 
 				branchSaleMap.get(shops.get(0));
+				if(shops.get(2).matches("\\d+$")){
+					System.out.println("予期せぬエラーが発生しました");
+					return;
+				}
 				long amount = Long.parseLong(shops.get(2));
 				long shopsale = branchSaleMap.get(shops.get(0));
 				long pulsamount = (amount + shopsale);
-				if( pulsamount >= 9999999999l ){
+				if( pulsamount > 9999999999l ){
 
 					System.out.println("合計金額が10桁を超えました");
 					return;
 				}
+
 				branchSaleMap.put(shops.get(0),pulsamount);
 
 				commoditySaleMap.get(shops.get(1));
+				long amount2 = commoditySaleMap.get(shops.get(0));
+				 pulsamount = (amount + amount2);
+				if (pulsamount > 9999999999l){
+					System.out.println("合計金額が10桁を超えました");
+					return;
+				}
 				commoditySaleMap.get(shops.get(1));
 				commoditySaleMap.put(shops.get(1),pulsamount);
 
@@ -210,7 +222,7 @@ public class CalculateSales {
 				bw.newLine();
 			}
 		} catch (IOException e) {
-				System.out.println("予期せぬエラーが発生しました。");
+				System.out.println("予期せぬエラーが発生しました");
 				return;
 		}finally{
 			try {
