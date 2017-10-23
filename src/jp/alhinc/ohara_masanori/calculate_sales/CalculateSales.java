@@ -160,7 +160,7 @@ public class CalculateSales {
 
 
 				branchSaleMap.get(shops.get(0));
-				if(shops.get(2).matches("\\d+$")){
+				if(!shops.get(2).matches("\\d+$")){
 					System.out.println("予期せぬエラーが発生しました");
 					return;
 				}
@@ -176,7 +176,7 @@ public class CalculateSales {
 				branchSaleMap.put(shops.get(0),pulsamount);
 
 				commoditySaleMap.get(shops.get(1));
-				long amount2 = commoditySaleMap.get(shops.get(0));
+				long amount2 = commoditySaleMap.get(shops.get(1));
 				 pulsamount = (amount + amount2);
 				if (pulsamount > 9999999999l){
 					System.out.println("合計金額が10桁を超えました");
