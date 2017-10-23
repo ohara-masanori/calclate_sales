@@ -20,12 +20,13 @@ public class CalculateSales {
 		HashMap<String,String>branchNameMap = new HashMap<String,String>();
 		HashMap<String,Long>branchSaleMap = new HashMap<String,Long>();
 		BufferedReader br = null;
+		if(args.length != 1){
+			System.out.println("予期せぬエラーが発生しました。");
+			return;
+		}
 		try{
 			File dir = new File(args[0],"branch.lst");
-			if(args.length != 1){
-				System.out.println("予期せぬエラーが発生しました。");
-				return;
-			}
+
 			FileReader fr = new FileReader(dir);
 			br = new BufferedReader(fr);
 
@@ -63,9 +64,6 @@ public class CalculateSales {
 				return;
 			}
 		}
-
-
-
 		//commondity.lstのデータを分割する。
 		HashMap<String,String>commondityNameMap = new HashMap<String,String>();
 		HashMap<String,Long>commonditySaleMap = new HashMap<String,Long>();
@@ -84,7 +82,6 @@ public class CalculateSales {
 
 				if(!items[0].matches("^[a-zA-Z0-9]+$") &&(items.length !=2)){
 					System.out.println("商品定義ファイルのフォーマットが不正です。");
-
 				}
 				commondityNameMap.put(items[0],items[1]);
 				commonditySaleMap.put(items[0],money);
@@ -109,7 +106,6 @@ public class CalculateSales {
 				return;
 			}
 		}
-
 			//ディレクトリの中の.rcdファイルを選別する。
 		File dir = new File(args[0]);
 
@@ -146,23 +142,20 @@ public class CalculateSales {
 				while((strshop = br.readLine()) != null){
 
 					shops.add(strshop);
-				}
-				br.close();
 
+				}
 				if(branchSaleMap.containsKey(shops.get(0))){
 					branchSaleMap.get((0));
 				}else{
 					System.out.println(rcdFiles.get(i).getName() + "の支店コードが不正です");
 					return;
 				}
-
 				if(commonditySaleMap.containsKey(shops.get(1))){
 					commonditySaleMap.get((0));
 				}else{
 					System.out.println(rcdFiles.get(i).getName() + "の商品コードが不正です");
 					return;
 				}
-
 				if(shops.size() !=3){
 					System.out.println(rcdFiles.get(i).getName() + "のフォーマットが不正です");
 					return;
@@ -176,19 +169,15 @@ public class CalculateSales {
 					System.out.println("合計金額が10桁を超えました");
 					return;
 				}
-
-
-
 				branchSaleMap.put(shops.get(0),pulsamount);
 
 				commonditySaleMap.get(shops.get(1));
 				commonditySaleMap.get(shops.get(1));
 				commonditySaleMap.put(shops.get(1),pulsamount);
 
-				br.close();
-
 			}catch (FileNotFoundException e){
 					System.out.println("ファイルが存在しません。");
+					return;
 
 			}catch (IOException e) {
 					System.out.println(e);
@@ -225,16 +214,12 @@ public class CalculateSales {
 				bw.write(s.getKey() + "," + branchNameMap.get(s.getKey()) + "," + s.getValue());
 				bw.newLine();
 			}
-
-
 		} catch (IOException e) {
 			// TODO 自動生成された catch ブロック
 				System.out.println("予期せぬエラーが発生しました。");
+				return;
 
-		}
-
-
-		finally{
+		}finally{
 			try {
 				if(bw != null) {
 					bw.close();
@@ -242,6 +227,7 @@ public class CalculateSales {
 			} catch (IOException e) {
 				// TODO 自動生成された catch ブロック
 				System.out.println("予期せぬエラーが発生しました");
+				return;
 			}
 		}
 
@@ -265,10 +251,9 @@ public class CalculateSales {
 				bw.write(s.getKey() + "," + commondityNameMap.get(s.getKey()) + "," + s.getValue());
 				bw.newLine();
 			}
-
-
 		} catch (IOException e) {
 			System.out.println("予期せぬエラーが発生しました");
+			return;
 		} finally{
 			try {
 				if(bw != null) {
@@ -277,8 +262,8 @@ public class CalculateSales {
 			} catch (IOException e) {
 				// TODO 自動生成された catch ブロック
 				System.out.println("予期せぬエラーが発生しました");
+				return;
 			}
-
 		}
 	}
 }
