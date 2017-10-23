@@ -21,7 +21,7 @@ public class CalculateSales {
 		HashMap<String,Long>branchSaleMap = new HashMap<String,Long>();
 		BufferedReader br = null;
 		if(args.length != 1){
-			System.out.println("予期せぬエラーが発生しました。");
+			System.out.println("予期せぬエラーが発生しました");
 			return;
 		}
 		try{
@@ -38,7 +38,7 @@ public class CalculateSales {
 				String[] items = branchNamedata.split(",",-1);
 				Long money =0l;
 				if(!items[0].matches("\\d{3}") || (items.length !=2)){
-					System.out.println("支店定義ファイルのフォーマットが不正です。");
+					System.out.println("支店定義ファイルのフォーマットが不正です");
 					return;
 				}
 				branchNameMap.put(items[0],items[1]);
@@ -46,11 +46,11 @@ public class CalculateSales {
 			}
 
 		} catch (FileNotFoundException e) {
-			System.out.println("支店定義ファイルが存在しません。");
+			System.out.println("支店定義ファイルが存在しません");
 			return;
 
 		} catch (IOException e) {
-			System.out.println("予期せぬエラーが発生しました。");
+			System.out.println("予期せぬエラーが発生しました");
 			return;
 
 		} finally {
@@ -80,8 +80,8 @@ public class CalculateSales {
 
 				String[] items = commondityNameData.split(",",-1);
 
-				if(!items[0].matches("^[a-zA-Z0-9]+$") &&(items.length !=2)){
-					System.out.println("商品定義ファイルのフォーマットが不正です。");
+				if(!items[0].matches("^[a-zA-Z0-9]+$") ||(items.length !=2)){
+					System.out.println("商品定義ファイルのフォーマットが不正です");
 				}
 				commondityNameMap.put(items[0],items[1]);
 				commonditySaleMap.put(items[0],money);
@@ -89,11 +89,11 @@ public class CalculateSales {
 			br.close();
 
 		}catch (FileNotFoundException e){
-			System.out.println("商品定義ファイルが存在しません。");
+			System.out.println("商品定義ファイルが存在しません");
 			return;
 
 		}catch (IOException e) {
-			System.out.println("予期せぬエラーが発生しました。");
+			System.out.println("予期せぬエラーが発生しました");
 			return;
 
 		}finally{
@@ -176,7 +176,7 @@ public class CalculateSales {
 				commonditySaleMap.put(shops.get(1),pulsamount);
 
 			}catch (FileNotFoundException e){
-					System.out.println("ファイルが存在しません。");
+					System.out.println("予期せぬエラーが発生しました");
 					return;
 
 			}catch (IOException e) {
