@@ -65,7 +65,7 @@ public class CalculateSales {
 				return;
 			}
 		}
-
+		//commodity.list作成
 		HashMap<String,String>commodityNameMap = new HashMap<String,String>();
 		HashMap<String,Long>commoditySaleMap = new HashMap<String,Long>();
 
@@ -80,7 +80,7 @@ public class CalculateSales {
 
 				String[] items = commodityNameData.split(",",-1);
 
-				if(!items[0].matches("^[a-zA-Z0-9]+$") ||(items.length !=2)){
+				if(!items[0].matches("^[a-zA-Z0-9]{8}$") ||(items.length !=2)){
 					System.out.println("商品定義ファイルのフォーマットが不正です");
 					return;
 				}
@@ -107,12 +107,13 @@ public class CalculateSales {
 				return;
 			}
 		}
-		File dir = new File(args[0]);
 
+		//売上げファイル
+		File dir = new File(args[0]);
 		File[] files =dir.listFiles();
 		ArrayList<File> rcdFiles = new ArrayList<>();
 		for(int i = 0; i < files.length ; i++ ){
-			if(files[i].getName().matches("\\d{8}.rcd$$")){
+			if(files[i].getName().matches("\\d{8}.rcd$$") && (files[i].isFile())){
 				rcdFiles.add(files[i]);
 			}
 		}
@@ -158,7 +159,7 @@ public class CalculateSales {
 					return;
 				}
 
-
+				//合計金額（branchSaleMap）
 				branchSaleMap.get(shops.get(0));
 				if(!shops.get(2).matches("\\d+$")){
 					System.out.println("予期せぬエラーが発生しました");
@@ -175,6 +176,7 @@ public class CalculateSales {
 
 				branchSaleMap.put(shops.get(0),pulsamount);
 
+				//合計金額（commoditySaleMap）
 				commoditySaleMap.get(shops.get(1));
 				long amount2 = commoditySaleMap.get(shops.get(1));
 				 pulsamount = (amount + amount2);
